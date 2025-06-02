@@ -1,3 +1,5 @@
+import java.awt.Component;
+
 import javax.swing.JFrame;
 
 public class App{
@@ -15,8 +17,8 @@ public class App{
        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        frame.setSize(boardWidth, boardHeight);
 
-       PacMan packmanGame = new PacMan();
-        frame.add(packmanGame);
+       PacMan pacmanGame = new PacMan();
+        frame.add(pacmanGame);
         frame.pack();
         frame.setVisible(true);
         pacmanGame.requestFocus(); 
