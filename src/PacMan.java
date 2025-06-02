@@ -79,10 +79,14 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
     Block pacman;
     HashSet<Block> foods;
 
+    Timer gameLoop;
+
 
     PacMan(){
         setPreferredSize(new Dimension(boardWidth, boardHeight));
         setBackground(Color.BLACK);
+        addKeyListener(this);
+        setFocusable(true);
 
         //load images
         wallImage=new ImageIcon(getClass().getResource("./wall.png")).getImage();
@@ -99,9 +103,8 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
 
 
         loadMap();
-       /*  System.out.println(walls.size());
-        System.out.println(foods.size());
-        System.out.println(ghosts.size());*/
+        gameLoop=new Timer(50,this);
+        gameLoop.start();
     }
 
     public void loadMap(){
@@ -168,6 +171,22 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
                 
                 g.fillRect(food.x, food.y, food.width, food.height);
             }
+        }
+
+        @Override
+        public void keyTyped(KeyEvent e) {}
+
+        @Override
+        public void keyPressed(KeyEvent e) {}
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+            System.out.println("KeyEvent: " + e.getKeyCode());
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            repaint();
         }
 
     
