@@ -13,6 +13,11 @@ public class App{
        frame.setLocationRelativeTo(null);
        frame.setResizable(false);
        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-         frame.setSize(boardWidth, boardHeight);
+       frame.setSize(boardWidth, boardHeight);
+
+       PacMan packmanGame = new PacMan();
+        frame.add(packmanGame);
+        frame.pack();
+        frame.setVisible(true);
     }
 }
