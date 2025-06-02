@@ -45,6 +45,33 @@ public class PacMan extends JPanel {
     private Image pacmanLeftImage;
     private Image pacmanRightImage;
 
+
+    //X = wall, O = skip, P = pac man, ' ' = foodAdd commentMore actions
+    //Ghosts: b = blue, o = orange, p = pink, r = red
+    private String[] tileMap = {
+        "XXXXXXXXXXXXXXXXXXX",
+        "X        X        X",
+        "X XX XXX X XXX XX X",
+        "X                 X",
+        "X XX X XXXXX X XX X",
+        "X    X       X    X",
+        "XXXX XXXX XXXX XXXX",
+        "OOOX X       X XOOO",
+        "XXXX X XXrXX X XXXX",
+        "O       bpo       O",
+        "XXXX X XXXXX X XXXX",
+        "OOOX X       X XOOO",
+        "XXXX X XXXXX X XXXX",
+        "X        X        X",
+        "X XX XXX X XXX XX X",
+        "X  X     P     X  X",
+        "XX X X XXXXX X X XX",
+        "X    X   X   X    X",
+        "X XXXXXX X XXXXXX X",
+        "X                 X",
+        "XXXXXXXXXXXXXXXXXXX" 
+    };
+
     HashSet<Block> walls;
     HashSet<Block> ghosts;
     Block pacman;
@@ -68,5 +95,44 @@ public class PacMan extends JPanel {
         pacmanLeftImage=new ImageIcon(getClass().getResource("./pacmanLeft.png")).getImage();
         pacmanRightImage=new ImageIcon(getClass().getResource("./pacmanRight.png")).getImage();
 
+    }
+
+    public void loadMap(){
+        walls=new HashSet<Block>();
+        foods=new HashSet<Block>();
+        ghosts=new HashSet<Block>();
+        for(int r=0; r<rowCount; r++){
+            for(int c=0; c<columnCount; c++){
+                String tile=tileMap[r];
+                char tileMapChar=row.charAt(c);
+                
+                int x=c*tileSize;
+                int y=r*tileSize;
+
+                switch(tile){
+                    case 'X':
+                        walls.add(new Block(wallImage, x, y, tileSize, tileSize));
+                        break;
+                    case 'O':
+                        foods.add(new Block(null, x, y, tileSize, tileSize));
+                        break;
+                    case 'P':
+                        pacman=new Block(pacmanDownImage, x, y, tileSize, tileSize);
+                        break;
+                    case 'b':
+                        ghosts.add(new Block(blueGhostImage, x, y, tileSize, tileSize));
+                        break;
+                    case 'o':
+                        ghosts.add(new Block(orangeGhostImage, x, y, tileSize, tileSize));
+                        break;
+                    case 'p':
+                        ghosts.add(new Block(pinkGhostImage, x, y, tileSize, tileSize));
+                        break;
+                    case 'r':
+                        ghosts.add(new Block(redGhostImage, x, y, tileSize, tileSize));
+                        break;
+                }
+            }
+        }
     }
 }
