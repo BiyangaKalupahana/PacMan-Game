@@ -65,6 +65,8 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
                 this.velocityY=0;
             } 
         }
+
+        
     }
     private int rowCount=21;
     private int columnCount=19;
@@ -218,12 +220,22 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
                 
                 g.fillRect(food.x, food.y, food.width, food.height);
             }
+
+            //score
+            g.setFont(new Font("Arial", Font.PLAIN, 18));
+            if(gameOver){
+                g.drawString("Game Over: "+String.valueOf(score), tileSize/2, tileSize/2);
+            }
+            else{
+              g.drawString("x" +String.valueOf(lives)+ "Score: " +String.valueOf(score), tileSize/2, tileSize/2); 
+            }
         }
 
         public void move(){
             pacman.x+=pacman.velocityX;
             pacman.y+=pacman.velocityY; 
 
+            //check wall collisions
             for(Block wall:walls){
                 if(collision(pacman,wall)){
                     //System.out.println("Collision with wall");
@@ -258,6 +270,14 @@ public class PacMan extends JPanel implements ActionListener, KeyListener {
                     System.exit(0);
                 }
             }
+            Block foodEaten=null;
+            for(Block food:foods){
+                if(collision(pacman, food)){
+                    foodEaten=food;
+                    score+=10;
+                }
+            }
+            foods.remove(foodEaten);
         }
 
         public boolean collision(Block a, Block b) {
